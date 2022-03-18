@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: None
   m_EditorClassIdentifier: Assembly-CSharp::SeedbedCircleConfig
   _status: 0
-  _timeForCircle: 3
+  _timeForCircle: 5

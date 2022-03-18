@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Middle
   m_EditorClassIdentifier: Assembly-CSharp::SeedbedCircleConfig
   _status: 1
-  _timeForCircle: 3
+  _timeForCircle: 8
