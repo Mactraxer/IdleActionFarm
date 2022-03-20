@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 class SeedbedCircleStatus
 {
+
     private List<SeedbedCircleConfig> _configPool;
     private SeedbedCircleConfig _currentConfig;
 

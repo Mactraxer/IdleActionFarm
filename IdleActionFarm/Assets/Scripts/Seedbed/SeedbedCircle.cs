@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 using UnityEngine;
 
-public class SeedbedCircle : MonoBehaviour
+public class SeedbedCircle : MonoBehaviour, IHarvestable
 {
     [SerializeField] private List<SeedbedCircleConfig> _configs;
     private SeedbedCircleStatus _status;
