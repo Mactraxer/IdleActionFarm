@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: b519dd479fa6ef84c9442a7f5a8ec62a
+guid: 5a2d55106bab20a41b3c72989cd9bea5
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Harvesting
+    second: HarvestingNotPlace
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -35,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Harvesting
+      name: HarvestingNotPlace
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 59
+      lastFrame: 72
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -526,23 +526,23 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: Harvesting(Clone)
+    - name: HarvestingNotPlace(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Beta_Joints
-      parentName: Harvesting(Clone)
+      parentName: HarvestingNotPlace(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Beta_Surface
-      parentName: Harvesting(Clone)
+      parentName: HarvestingNotPlace(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: mixamorig:Hips
-      parentName: Harvesting(Clone)
+      parentName: HarvestingNotPlace(Clone)
       position: {x: 0.008739718, y: 1.0720446, z: 0.014471265}
       rotation: {x: -6.7762636e-17, y: -0.00000004656613, z: 0.0000000014551915, w: 1}
       scale: {x: 1, y: 1, z: 0.9999999}
