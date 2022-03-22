@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 [RequireComponent(typeof(Animator))]
 public class PlayerAnimator : MonoBehaviour
@@ -18,9 +19,30 @@ public class PlayerAnimator : MonoBehaviour
 
     private Animator _animator;
 
+    public Action OnAnimatedHarvesting;
+
     private void Start()
     {
         _animator = GetComponent<Animator>();
+
+        foreach (var item in _animator.runtimeAnimatorController.animationClips)
+        {
+            if (item.name == HARVEST_BLEND_TREE)
+            {
+                print("Find needed clip");
+                AnimationEvent animationEndEvent = new AnimationEvent();
+                animationEndEvent.time = item.length;
+                animationEndEvent.functionName = "AnimationHarvestingCompleteHandler";
+                animationEndEvent.stringParameter = item.name;
+
+                item.AddEvent(animationEndEvent);
+            }
+        }
+    }
+
+    private void AnimationHarvestingCompleteHandler(string name)
+    {
+        OnAnimatedHarvesting?.Invoke();
     }
 
     public void AninateRun()

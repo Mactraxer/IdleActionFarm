@@ -7,9 +7,12 @@ public class PlayerPresenter : MonoBehaviour
     [SerializeField] private PlayerMover _mover;
     [SerializeField] private PlayerAnimator _animator;
     [SerializeField] private PlayerTrigger _trigger;
+    [SerializeField] private GameObject _tool;
 
     private void Start()
     {
+        _tool.SetActive(false);
+
         _input.OnInputHorizontal += InputHorizontal;
         _input.OnInputVertical += InputVertical;
         _input.OnInputAction += InputAction;
@@ -37,11 +40,13 @@ public class PlayerPresenter : MonoBehaviour
 
     private void DetectHarvestableObject()
     {
+        _tool.SetActive(true);
         _animator.AnimateHarvesting();
     }
 
     private void LoseHarvestableObject()
     {
+        _tool.SetActive(false);
         _animator.AnimateIdle();
     }
 

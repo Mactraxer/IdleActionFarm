@@ -3,10 +3,12 @@ using UnityEngine;
 
 [RequireComponent(typeof(Timer))]
 [RequireComponent(typeof(SeedbedTrigger))]
-public class SeedbedPresenter : MonoBehaviour
+public class SeedbedPresenter : MonoBehaviour, IHarvestable
 {
 
     [SerializeField] private List<SeedbedCircleConfig> _configs;
+    [SerializeField] private GameObject _resourceDrop;
+
     private SeedbedCircleConfig _currentConfig;
     private SeedbedTrigger _trigger;
 
@@ -46,12 +48,18 @@ public class SeedbedPresenter : MonoBehaviour
 
     private void DetectTool()
     {
-        print(_currentConfig);
+        
         if (_currentConfig.IsRipe == true)
         {
+            DropResource();
             ResetSeedbedCircle();
         }
         
+    }
+
+    private void DropResource()
+    {
+        Instantiate(_resourceDrop, transform.position, Quaternion.identity);
     }
 
     private void InstantiateObject()
