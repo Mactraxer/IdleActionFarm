@@ -4,10 +4,14 @@ using UnityEngine;
 class SeedbedCircleConfig : ScriptableObject
 {
 
-    [SerializeField] private SeedbedCircleType _status;
+    [SerializeField] private string _name;
+    [SerializeField] private bool _isRipe;
+    [SerializeField] private GameObject _prefab;
     [SerializeField] private float _timeForCircle;
 
-    public SeedbedCircleType Status => _status;
+    public string Name => _name;
+    public GameObject Prefab => _prefab;
     public float TimeForCircle => _timeForCircle;
-
+    public bool IsRipe => _isRipe;
+    
 }

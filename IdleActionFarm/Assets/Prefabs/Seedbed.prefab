@@ -41,6 +41,8 @@ GameObject:
   - component: {fileID: 5526511292829730701}
   - component: {fileID: 5526511292829730698}
   - component: {fileID: 5526511292829730699}
+  - component: {fileID: 2014254271175144639}
+  - component: {fileID: 1824543188142027397}
   m_Layer: 0
   m_Name: Seedbed
   m_TagString: Untagged
@@ -88,7 +90,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c24ef32f0a5ee44f9385e93b046574b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2014254271175144639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5526511292829730696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46f9565de5601234a8e75ee68474b53e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _configs:
-  - {fileID: 11400000, guid: c016ca04a94d6ea4d9e6dc74df77593a, type: 2}
-  - {fileID: 11400000, guid: d646231c2cfdf1c46a226810bc118868, type: 2}
-  - {fileID: 11400000, guid: 10195265e691fa64c9ade3e262e2493b, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &1824543188142027397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5526511292829730696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4d8c3f1c448ff749bb6795b1bde4e62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

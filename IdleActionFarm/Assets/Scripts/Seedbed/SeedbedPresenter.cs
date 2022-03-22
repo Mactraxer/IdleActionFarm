@@ -1,43 +1,90 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Timer))]
+[RequireComponent(typeof(SeedbedTrigger))]
 public class SeedbedPresenter : MonoBehaviour
 {
 
-    [SerializeField] private GameObject _grassNone;
-    [SerializeField] private GameObject _grassYoung;
-    [SerializeField] private GameObject _grassMature;
+    [SerializeField] private List<SeedbedCircleConfig> _configs;
+    private SeedbedCircleConfig _currentConfig;
+    private SeedbedTrigger _trigger;
 
-    [SerializeField] private SeedbedCircle _seedbedCircle;
-    [SerializeField] private GameObject _seedbedGameObject;
-    private GameObject _instiatedGrass;
+    private GameObject _instantiatedObject;
+
+    private Timer _timer; 
 
     private void Awake()
     {
-        _seedbedCircle.OnChangeStatus += SeedbedCircleStatusChanged;
+        InitComponents();
+
+        _timer.OnTimeout += Timeout;
+        _trigger.OnDetectTool += DetectTool;
     }
 
-    private void SeedbedCircleStatusChanged(SeedbedCircleType type)
+    private void OnDisable()
     {
-        switch (type) 
+        _timer.OnTimeout -= Timeout;
+    }
+
+    private void Start()
+    {
+        ResetSeedbedCircle();
+    }
+
+    private void InitComponents()
+    {
+        _timer = GetComponent<Timer>();
+        _trigger = GetComponent<SeedbedTrigger>();
+    }
+
+    private void Timeout()
+    {
+        SetNextConfig();
+        InstantiateObject();
+    }
+
+    private void DetectTool()
+    {
+        print(_currentConfig);
+        if (_currentConfig.IsRipe == true)
         {
-            case SeedbedCircleType.empty:
-                Destroy(_instiatedGrass);
-                _instiatedGrass = Instantiate(_grassNone, _seedbedGameObject.transform);
-                break;
-            case SeedbedCircleType.yound:
-                Destroy(_instiatedGrass);
-                _instiatedGrass = Instantiate(_grassYoung, _seedbedGameObject.transform);
-                break;
-            case SeedbedCircleType.mature:
-                Destroy(_instiatedGrass);
-                _instiatedGrass = Instantiate(_grassMature, _seedbedGameObject.transform);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException($"Not define logic for {type} in switch");
+            ResetSeedbedCircle();
+        }
+        
+    }
+
+    private void InstantiateObject()
+    {
+        if (_instantiatedObject != null)
+        {
+            Destroy(_instantiatedObject);
+        }
+        _instantiatedObject = Instantiate(_currentConfig.Prefab, transform);
+    }
+
+    private void SetNextConfig()
+    {
+        var nextIndexConfig = _configs.IndexOf(_currentConfig) + 1;
+
+        if (nextIndexConfig < _configs.Count)
+        {
+            _currentConfig = _configs[nextIndexConfig];
+            StartSeedbedCircle();
         }
 
+    }
 
+    private void ResetSeedbedCircle()
+    {
+        _currentConfig = _configs[0];
+        StartSeedbedCircle();
+        InstantiateObject();
+    }
+    
+    private void StartSeedbedCircle()
+    {
+        _timer.StartTimer(_currentConfig.TimeForCircle);
     }
 
 }

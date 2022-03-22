@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: Old
-  m_EditorClassIdentifier: Assembly-CSharp::SeedbedCircleConfig
-  _status: 2
+  m_Script: {fileID: 11500000, guid: 8ed8a4eb12e0ba142adb25c7e9934396, type: 3}
+  m_Name: Mature
+  m_EditorClassIdentifier: 
+  _name: Mature
+  _isRipe: 1
+  _prefab: {fileID: 4432734101278908443, guid: 5672f599abf1f394fbab12c5087dacf3, type: 3}
   _timeForCircle: 5
