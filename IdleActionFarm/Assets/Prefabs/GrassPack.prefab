@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 8284797987808056743}
   - component: {fileID: 6628253102652823941}
   - component: {fileID: 1105909440462831655}
+  - component: {fileID: 3848437664570292995}
+  - component: {fileID: 3231817205965465523}
   m_Layer: 0
   m_Name: Pack
   m_TagString: Untagged
@@ -93,7 +95,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1223839181943064129}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -141,6 +143,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c24ef32f0a5ee44f9385e93b046574b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3848437664570292995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223839181943064129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc5e481628124a04fb09632a1786beec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _config: {fileID: 11400000, guid: c0efdbcad1c079448a73e2571f5d4bbe, type: 2}
+--- !u!114 &3231817205965465523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223839181943064129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f3089f5582b8ad44bc9cc0631e6546b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1818952600537343650
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1818952600537343651}
   m_Layer: 0
-  m_Name: ResourcePack
+  m_Name: GrassPack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

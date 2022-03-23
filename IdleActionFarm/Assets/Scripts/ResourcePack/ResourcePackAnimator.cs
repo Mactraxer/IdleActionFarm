@@ -15,8 +15,12 @@ public class ResourcePackAnimator : MonoBehaviour
         _animator = GetComponent<Animator>();
         _timer = GetComponent<Timer>();
 
-        _animator.Play(DROP_CLIP_NAME);
         _timer.OnTimeout += Timeout;
+    }
+
+    public void StartAnimate()
+    {
+        _animator.Play(DROP_CLIP_NAME);
         _timer.StartTimer(1f);
     }
 
@@ -28,6 +32,11 @@ public class ResourcePackAnimator : MonoBehaviour
     private void Timeout()
     {
         _animator.Play(IDLE_CLIP_NAME);
+    }
+
+    public void StopAnimate()
+    {
+        _animator.enabled = false;
     }
 
 }

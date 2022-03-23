@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "new seedbedCircleConfig", menuName = "ScriptableObjects/SeedbedCircleConfig")]
+[CreateAssetMenu(fileName = "SeedbedCircleConfig", menuName = "ScriptableObjects/New SeedbedCircleConfig")]
 class SeedbedCircleConfig : ScriptableObject
 {
 

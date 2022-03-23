@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 2014254271175144639}
   - component: {fileID: 1824543188142027397}
   m_Layer: 0
-  m_Name: Seedbed
+  m_Name: GrassSeedbed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

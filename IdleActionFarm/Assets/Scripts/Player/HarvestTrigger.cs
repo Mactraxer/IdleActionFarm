@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class PlayerTrigger : MonoBehaviour
+public class HarvestTrigger : MonoBehaviour
 {
 
     public Action OnDetectHarvestableObject;
