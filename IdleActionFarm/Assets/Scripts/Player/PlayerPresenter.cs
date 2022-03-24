@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerPresenter : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class PlayerPresenter : MonoBehaviour
     [SerializeField] private PlayerMover _mover;
     [SerializeField] private PlayerAnimator _animator;
     [SerializeField] private PlayerInventory _inventory;
+    [SerializeField] private PlayerWallet _wallet;
     [SerializeField] private InventoryRotator _inventoryAnimator;
 
     [SerializeField] private HarvestTrigger _harvestTrigger;
@@ -14,6 +16,8 @@ public class PlayerPresenter : MonoBehaviour
     [SerializeField] private GameObject _tool;
 
     [SerializeField] private ResourcePackTrigger _resourceTrigger;
+
+    [SerializeField] private PlayerWalletView _walletView;
 
 
     private void Start()
@@ -41,8 +45,6 @@ public class PlayerPresenter : MonoBehaviour
 
         _resourceTrigger.OnDetectResource -= DetectResource;
     }
-
-
 
     private void DetectResource(ResourcePackData data)
     {
@@ -84,5 +86,21 @@ public class PlayerPresenter : MonoBehaviour
         _tool.SetActive(false);
         _animator.AnimateIdle();
     }
+
+    /// API
+    public List<ResourcePackData> BuyResources()
+    {
+        return _inventory.GetResources();
+    }
+
+    public bool HaveResourceForSell => _inventory.InventoryCapacity > 0;
+
+    public void ApplyPay(int value)
+    {
+        _wallet.TopUpWallet(value);
+        _inventory.ClearInventory();
+        _walletView.UpdateGold(value);
+    }
+    
 
 }

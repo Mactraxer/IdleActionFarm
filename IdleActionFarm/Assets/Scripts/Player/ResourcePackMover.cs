@@ -1,18 +1,63 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
-public class ResourcePackMover : MonoBehaviour
+public class ResourcePackMover : MonoBehaviour, IMoveable
 {
 
-    [SerializeField] private Transform _transformDistanse;
-    private Vector3 _positionOffset;
-    [SerializeField] private float _speed;
-    public Action<GameObject> OnMoved;
+    private Transform _distanse;
+    private Vector3 _currentPositionOffset;
+    private Vector3 _positionOffsetStep;
+    private float _speed;
 
     private void Start()
     {
-        _positionOffset = Vector3.zero;
+        _currentPositionOffset = Vector3.zero;
+    }
+
+    private IEnumerator CoroutineMove(GameObject item)
+    {
+        var waitForFixedUpdate = new WaitForFixedUpdate();
+
+        while (item.transform.position != _distanse.position + _currentPositionOffset)
+        {
+            item.transform.position = Vector3.MoveTowards(item.transform.position, _distanse.position + _currentPositionOffset, _speed);
+            yield return waitForFixedUpdate;
+        }
+
+        OnMovedPack?.Invoke(item);
+        SetNextPosition();
+    }
+
+    private IEnumerator CoroutineMove(List<GameObject> items)
+    {
+        var waitForFixedUpdate = new WaitForFixedUpdate();
+
+        foreach (var item in items)
+        {
+            yield return StartCoroutine(CoroutineMove(item));
+        }
+
+        OnMovedPacks?.Invoke();
+    }
+
+    private void SetNextPosition()
+    {
+        _currentPositionOffset += _positionOffsetStep;
+    }
+
+    ///
+    // IMoveable 
+    ///
+    public Action<GameObject> OnMovedPack { get; set; }
+    public Action OnMovedPacks { get; set; }
+
+    public void Setup(Transform distanse, Vector3 positionOffsetStep, float speed)
+    {
+        _distanse = distanse;
+        _positionOffsetStep = positionOffsetStep;
+        _speed = speed;
     }
 
     public void MovePack(GameObject pack)
@@ -20,24 +65,14 @@ public class ResourcePackMover : MonoBehaviour
         StartCoroutine(CoroutineMove(pack));
     }
 
-    private IEnumerator CoroutineMove(GameObject item)
+    public void MovePacks(List<GameObject> packs)
     {
-        var waitForFixedUpdate = new WaitForFixedUpdate();
-        
-        while (item.transform.position != _transformDistanse.position + _positionOffset)
-        {
-            item.transform.position = Vector3.MoveTowards(item.transform.position, _transformDistanse.position + _positionOffset, _speed);
-            yield return waitForFixedUpdate;
-        }
-        
-        OnMoved?.Invoke(item);
-        SetNextPosition();
+        StartCoroutine(CoroutineMove(packs));
     }
 
-    
-    private void SetNextPosition()
+    public void ClearOffset()
     {
-        _positionOffset += new Vector3(0, 0.2f, 0);
+        _currentPositionOffset = Vector3.zero;
     }
 
 }

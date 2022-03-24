@@ -13,15 +13,15 @@ public class InventoryRotator : MonoBehaviour
     }
     public void ChangeSpeed(float speed)
     {
-        if (speed > 0f && _rotateCoroutine == null)
-        {
-            _rotateCoroutine = StartCoroutine(Rotate());
-        }
-        else if (speed < 0.1f)
-        {
-            StopAllCoroutines();
-            _rotateCoroutine = null;
-        }
+        //if (speed > 0f && _rotateCoroutine == null)
+        //{
+        //    _rotateCoroutine = StartCoroutine(Rotate());
+        //}
+        //else if (speed < 0.1f)
+        //{
+        //    StopAllCoroutines();
+        //    _rotateCoroutine = null;
+        //}
     }
 
     private IEnumerator Rotate()
