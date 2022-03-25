@@ -95,4 +95,9 @@ public class SeedbedPresenter : MonoBehaviour, IHarvestable
         _timer.StartTimer(_currentConfig.TimeForCircle);
     }
 
+    ///
+    /// IHarvestable
+    /// 
+
+    public bool IsRipe => _currentConfig.IsRipe;
 }

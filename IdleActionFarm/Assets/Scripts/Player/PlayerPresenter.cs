@@ -46,15 +46,12 @@ public class PlayerPresenter : MonoBehaviour
         _resourceTrigger.OnDetectResource -= DetectResource;
     }
 
-    private void DetectResource(ResourcePackData data)
+    private void DetectResource(IResourceable resource)
     {
-        ResourcePackPresenter resourcePresenter;
-        if (data.gameObject.TryGetComponent(out resourcePresenter))
-        {
-            resourcePresenter.ResourcePicked();
-        }
-
-        _inventory.PutItem(data.gameObject);
+        if (_inventory.CanPutItem() == false) return;
+        
+        resource.ResourcePicked();
+        _inventory.PutItem(resource);
     }
 
     private void InputVertical(float direction)
@@ -75,10 +72,13 @@ public class PlayerPresenter : MonoBehaviour
         _animator.AnimateHarvesting();
     }
 
-    private void DetectHarvestableObject()
+    private void DetectHarvestableObject(IHarvestable harvestableComponent)
     {
+        if (harvestableComponent.IsRipe == false) return;
+
         _tool.SetActive(true);
         _animator.AnimateHarvesting();
+
     }
 
     private void LoseHarvestableObject()
@@ -88,7 +88,7 @@ public class PlayerPresenter : MonoBehaviour
     }
 
     /// API
-    public List<ResourcePackData> BuyResources()
+    public List<IResourceable> BuyResources()
     {
         return _inventory.GetResources();
     }

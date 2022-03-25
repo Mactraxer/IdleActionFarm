@@ -6,9 +6,7 @@ public class PlayerAnimator : MonoBehaviour
 {
 
     //===== Clips name =====
-    private const string IDLE = "Idle";
     private const string RUN = "Run";
-    private const string HARVESTING = "Harvesting";
 
     //===== Blend trees paramets =====
     private const string SPEED = "Speed";
@@ -24,11 +22,6 @@ public class PlayerAnimator : MonoBehaviour
     private void Start()
     {
         _animator = GetComponent<Animator>();
-    }
-
-    private void AnimationHarvestingCompleteHandler(string name)
-    {
-        OnAnimatedHarvesting?.Invoke();
     }
 
     public void AninateRun()
@@ -50,4 +43,5 @@ public class PlayerAnimator : MonoBehaviour
     {
         _animator.SetFloat(SPEED, speed);
     }
+
 }

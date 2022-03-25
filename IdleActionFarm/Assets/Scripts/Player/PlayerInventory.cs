@@ -5,35 +5,41 @@ using UnityEngine;
 [RequireComponent(typeof(ResourcePackMover))]
 public class PlayerInventory : MonoBehaviour
 {
-    private IMoveable _packMover;
-    [SerializeField] private List<GameObject> _items;
+    private IMoverable _packMover;
+    [SerializeField] private List<IResourceable> _items;
     [SerializeField] private Transform _inventoryTransform;
     [SerializeField] private int _maxInventoryCapacity;
 
     private void Start()
     {
-        _items = new List<GameObject>();
+        _items = new List<IResourceable>();
         _packMover = GetComponent<ResourcePackMover>();
 
         _packMover.OnMovedPack += ResourceMoved;
         _packMover.Setup(_inventoryTransform, new Vector3(0, 0.2f, 0), 0.2f);
     }
 
-    private void ResourceMoved(GameObject pack)
+    private void ResourceMoved(IMoveable pack)
     {
-        _items.Add(pack);
-        pack.transform.parent = _inventoryTransform;
+        IResourceable resource = (IResourceable)pack;
+        if (resource == null) throw new ArgumentNullException("Can't convert IMoveable to IResourceable"); 
+
+        _items.Add(resource);
+        pack.ChangeParent(_inventoryTransform);
         
     }
 
     /// API
-    public void PutItem(GameObject item)
+    public void PutItem(IResourceable item)
     {
-        if (CanPutItem(item) == false) { throw new InvalidOperationException("Inventory is full"); }
-        _packMover.MovePack(item);
+        if (CanPutItem() == false) { throw new InvalidOperationException("Inventory is full"); }
+
+        IMoveable resource = (IMoveable)item;
+        if (resource == null) throw new ArgumentNullException("Can't convert IResourceable to IMoveable");
+        _packMover.Move(resource);
     }
 
-    public bool CanPutItem(GameObject item)
+    public bool CanPutItem()
     {
         if (_items.Count + 1 > _maxInventoryCapacity)
         {
@@ -47,31 +53,16 @@ public class PlayerInventory : MonoBehaviour
 
     public int InventoryCapacity => _items.Count;
 
-    public List<ResourcePackData> GetResources()
+    public List<IResourceable> GetResources()
     {
-        List<ResourcePackData> resources = new List<ResourcePackData>();
-
-        foreach (var item in _items)
-        {
-            ResourcePackData dataComponent;
-
-            if (item.TryGetComponent(out dataComponent))
-            {
-                resources.Add(dataComponent);
-            }
-        }
-
-        return resources;
+        return _items;
     }
 
     public void ClearInventory()
     {
-        foreach (var item in _items)
-        {
-            Destroy(item);
-        }
+        _items.ForEach( item => item.DestroySelf() );
 
-        _items = new List<GameObject>();
+        _items = new List<IResourceable>();
         _packMover.ClearOffset();
     }
 

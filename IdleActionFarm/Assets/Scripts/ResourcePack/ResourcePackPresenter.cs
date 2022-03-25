@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(ResourcePackAnimator))]
 [RequireComponent(typeof(ResourcePackData))]
-public class ResourcePackPresenter : MonoBehaviour
+public class ResourcePackPresenter : MonoBehaviour, IResourceable, IMoveable
 {
     private ResourcePackAnimator _animator;
     private ResourcePackData _data;
@@ -21,6 +21,33 @@ public class ResourcePackPresenter : MonoBehaviour
     {
         _animator.StopAnimate();
         _collider.enabled = false;
+    }
+
+    /// 
+    /// IResourceable
+    /// 
+    public void DestroySelf()
+    {
+        Destroy(gameObject);
+    }
+
+    public ResourcePackData GetResourceData()
+    {
+        return _data;
+    }
+
+    ///
+    /// IMoveable
+    /// 
+    public Vector3 GetPosition => transform.position;
+    public void SetPosition(Vector3 newVector)
+    {
+        transform.position = newVector;
+    }
+
+    public void ChangeParent(Transform parent)
+    {
+        transform.parent = parent;
     }
 
 }

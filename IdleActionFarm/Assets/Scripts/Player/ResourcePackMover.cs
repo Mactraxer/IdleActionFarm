@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
-public class ResourcePackMover : MonoBehaviour, IMoveable
+public class ResourcePackMover : MonoBehaviour, IMoverable
 {
 
     private Transform _distanse;
@@ -16,13 +16,14 @@ public class ResourcePackMover : MonoBehaviour, IMoveable
         _currentPositionOffset = Vector3.zero;
     }
 
-    private IEnumerator CoroutineMove(GameObject item)
+    private IEnumerator CoroutineMove(IMoveable item)
     {
         var waitForFixedUpdate = new WaitForFixedUpdate();
 
-        while (item.transform.position != _distanse.position + _currentPositionOffset)
+        while (item.GetPosition != _distanse.position + _currentPositionOffset)
         {
-            item.transform.position = Vector3.MoveTowards(item.transform.position, _distanse.position + _currentPositionOffset, _speed);
+            Vector3 newPosition = Vector3.MoveTowards(item.GetPosition, _distanse.position + _currentPositionOffset, _speed);
+            item.SetPosition(newPosition);
             yield return waitForFixedUpdate;
         }
 
@@ -30,7 +31,7 @@ public class ResourcePackMover : MonoBehaviour, IMoveable
         SetNextPosition();
     }
 
-    private IEnumerator CoroutineMove(List<GameObject> items)
+    private IEnumerator CoroutineMove(List<IMoveable> items)
     {
         var waitForFixedUpdate = new WaitForFixedUpdate();
 
@@ -48,9 +49,10 @@ public class ResourcePackMover : MonoBehaviour, IMoveable
     }
 
     ///
-    // IMoveable 
+    /// IMoveable 
     ///
-    public Action<GameObject> OnMovedPack { get; set; }
+
+    public Action<IMoveable> OnMovedPack { get; set; }
     public Action OnMovedPacks { get; set; }
 
     public void Setup(Transform distanse, Vector3 positionOffsetStep, float speed)
@@ -60,12 +62,12 @@ public class ResourcePackMover : MonoBehaviour, IMoveable
         _speed = speed;
     }
 
-    public void MovePack(GameObject pack)
+    public void Move(IMoveable pack)
     {
         StartCoroutine(CoroutineMove(pack));
     }
 
-    public void MovePacks(List<GameObject> packs)
+    public void Move(List<IMoveable> packs)
     {
         StartCoroutine(CoroutineMove(packs));
     }

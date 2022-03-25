@@ -4,16 +4,13 @@ using System;
 [RequireComponent(typeof(Collider))]
 public class ResourcePackTrigger : MonoBehaviour
 {
-    public Action<ResourcePackData> OnDetectResource;
+    public Action<IResourceable> OnDetectResource;
 
     private void OnTriggerEnter(Collider other)
     {
-        ResourcePackData resourceComponent;
-                
-        if (other.TryGetComponent(out resourceComponent))
-        {
-            OnDetectResource?.Invoke(resourceComponent);
-        }
+        if (other.TryGetComponent(out IResourceable resource) == false) return;
+
+        OnDetectResource?.Invoke(resource);
     }
 
 }

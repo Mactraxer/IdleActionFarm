@@ -5,15 +5,16 @@ using UnityEngine;
 public class HarvestTrigger : MonoBehaviour
 {
 
-    public Action OnDetectHarvestableObject;
+    public Action<IHarvestable> OnDetectHarvestableObject;
     public Action OnLoseHarvestableObject;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.GetComponent<IHarvestable>() != null)
+        IHarvestable harvestableComponent;
+        if (other.TryGetComponent(out harvestableComponent))
         {
-            OnDetectHarvestableObject?.Invoke();
-        }    
+            OnDetectHarvestableObject?.Invoke(harvestableComponent);
+        }
     }
 
     private void OnTriggerExit(Collider other)

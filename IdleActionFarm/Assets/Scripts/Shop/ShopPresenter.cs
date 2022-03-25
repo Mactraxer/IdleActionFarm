@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 [RequireComponent(typeof(ShopTrigger))]
 [RequireComponent(typeof(ResourcePackMover))]
@@ -7,8 +8,10 @@ public class ShopPresenter : MonoBehaviour
 {
     [SerializeField] private Transform _shopPosition;
     private ShopTrigger _trigger;
-    private IMoveable _resourceMover;
+    private IMoverable _resourceMover;
     private PlayerPresenter _playerPresenter;
+
+    private int _sumForPay;
 
     private void Start()
     {
@@ -19,6 +22,8 @@ public class ShopPresenter : MonoBehaviour
         _resourceMover.OnMovedPacks += MovedPacks;
 
         _resourceMover.Setup(_shopPosition, Vector3.zero, 0.2f);
+
+        _sumForPay = 0;
     }
 
     private void OnDisable()
@@ -33,21 +38,27 @@ public class ShopPresenter : MonoBehaviour
 
         _playerPresenter = presenter;
         var resourcesForSell = presenter.BuyResources();
-        List<GameObject> resourceGameObjects = new List<GameObject>();
-        resourcesForSell.ForEach(item => resourceGameObjects.Add(item.gameObject));
 
-        _resourceMover.MovePacks(resourceGameObjects);
+        List<IMoveable> resourcesMoveable = new List<IMoveable>();
+
+        resourcesForSell.ForEach( item => resourcesMoveable.Add((IMoveable)item) );
+        bool allResourcesNotNull = resourcesMoveable.TrueForAll(item => item != null);
+        if (allResourcesNotNull == false) throw new ArgumentNullException("Object hasn't implemented interfaces: IMoveable, IResourceable");
+
+        _resourceMover.Move(resourcesMoveable);
+        CalculateSellPrice(resourcesForSell);
+    }
+
+    private void CalculateSellPrice(List<IResourceable> resources)
+    {
+        _sumForPay = 0;
+
+        resources.ForEach(item => _sumForPay += item.GetResourceData().SellPrice);
     }
 
     private void MovedPacks()
     {
-        int payValue = 0;
-
-        var resourcesForSell = _playerPresenter.BuyResources();
-        resourcesForSell.ForEach(item => payValue += item.SellPrice);
-
-
-        _playerPresenter.ApplyPay(payValue);
+        _playerPresenter.ApplyPay(_sumForPay);
         _playerPresenter = null;
     }
 

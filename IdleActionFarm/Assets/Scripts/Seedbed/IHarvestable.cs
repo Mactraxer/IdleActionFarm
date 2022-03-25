@@ -1,4 +1,4 @@
-interface IHarvestable
+public interface IHarvestable
 {
-    
+    public bool IsRipe { get; }
 }
