@@ -97,9 +97,10 @@ public class PlayerPresenter : MonoBehaviour
 
     public void ApplyPay(int value)
     {
+        print($"Apply pay = {value}");
         _wallet.TopUpWallet(value);
         _inventory.ClearInventory();
-        _walletView.UpdateGold(value);
+        _walletView.UpdateGold(_wallet.Balance);
     }
     
 

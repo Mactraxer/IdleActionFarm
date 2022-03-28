@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 
 [RequireComponent(typeof(ShopTrigger))]
-[RequireComponent(typeof(ResourcePackMover))]
+[RequireComponent(typeof(IMoverable))]
 public class ShopPresenter : MonoBehaviour
 {
     [SerializeField] private Transform _shopPosition;
@@ -16,12 +16,12 @@ public class ShopPresenter : MonoBehaviour
     private void Start()
     {
         _trigger = GetComponent<ShopTrigger>();
-        _resourceMover = GetComponent<ResourcePackMover>();
+        _resourceMover = GetComponent<IMoverable>();
 
         _trigger.OnDetectInventory += DetectPlayer;
         _resourceMover.OnMovedPacks += MovedPacks;
 
-        _resourceMover.Setup(_shopPosition, Vector3.zero, 0.2f);
+        _resourceMover.Setup(_shopPosition, Vector3.zero, 0.6f);
 
         _sumForPay = 0;
     }
@@ -40,8 +40,8 @@ public class ShopPresenter : MonoBehaviour
         var resourcesForSell = presenter.BuyResources();
 
         List<IMoveable> resourcesMoveable = new List<IMoveable>();
-
         resourcesForSell.ForEach( item => resourcesMoveable.Add((IMoveable)item) );
+
         bool allResourcesNotNull = resourcesMoveable.TrueForAll(item => item != null);
         if (allResourcesNotNull == false) throw new ArgumentNullException("Object hasn't implemented interfaces: IMoveable, IResourceable");
 

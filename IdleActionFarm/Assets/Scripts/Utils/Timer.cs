@@ -12,6 +12,11 @@ public class Timer: MonoBehaviour
         StartCoroutine(CoroutineTimer(duration));
     }
 
+    public void StopTimer()
+    {
+        StopAllCoroutines();
+    }
+
     private IEnumerator CoroutineTimer(float duration)
     {
         var waitForSeconds = new WaitForSeconds(1);

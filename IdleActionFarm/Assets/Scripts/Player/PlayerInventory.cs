@@ -16,7 +16,7 @@ public class PlayerInventory : MonoBehaviour
         _packMover = GetComponent<ResourcePackMover>();
 
         _packMover.OnMovedPack += ResourceMoved;
-        _packMover.Setup(_inventoryTransform, new Vector3(0, 0.2f, 0), 0.2f);
+        _packMover.Setup(_inventoryTransform, new Vector3(0, 0.2f, 0), 0.4f);
     }
 
     private void ResourceMoved(IMoveable pack)

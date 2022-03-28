@@ -14,7 +14,7 @@ public class SeedbedPresenter : MonoBehaviour, IHarvestable
 
     private GameObject _instantiatedObject;
 
-    private Timer _timer; 
+    private Timer _timer;
 
     private void Awake()
     {
@@ -85,6 +85,7 @@ public class SeedbedPresenter : MonoBehaviour, IHarvestable
 
     private void ResetSeedbedCircle()
     {
+        _timer.StopTimer();
         _currentConfig = _configs[0];
         StartSeedbedCircle();
         InstantiateObject();

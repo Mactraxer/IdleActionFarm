@@ -7,6 +7,8 @@ public class ResourcePackAnimator : MonoBehaviour
     private const string DROP_CLIP_NAME = "ResourcePackDrop";
     private const string IDLE_CLIP_NAME = "ResourcePackIdle";
 
+    private const float DROP_CLIP_TIME_LENGHT = 1f;
+
     private Animator _animator;
     private Timer _timer;
 
@@ -21,7 +23,7 @@ public class ResourcePackAnimator : MonoBehaviour
     public void StartAnimate()
     {
         _animator.Play(DROP_CLIP_NAME);
-        _timer.StartTimer(1f);
+        _timer.StartTimer(DROP_CLIP_TIME_LENGHT);
     }
 
     private void OnDisable()

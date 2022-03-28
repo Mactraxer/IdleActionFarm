@@ -230,6 +230,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 416843478}
   m_CullTransparentMesh: 1
+--- !u!1 &598203390 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6515784006573888374, guid: 1be75e3c7a76de74a98e78667ee22e36, type: 3}
+  m_PrefabInstance: {fileID: 2161426192659807876}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &598203397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598203390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 045b94dcb13aa98449acf9fc347178a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,6 +715,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Seedbed (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5526511292829730696, guid: 0ba967697d05222438dd250d85ec7a52, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5526511292829730701, guid: 0ba967697d05222438dd250d85ec7a52, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -999,7 +1020,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4c280057d854cc49a47e09666d0526d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _items: []
   _inventoryTransform: {fileID: 1740896876}
   _maxInventoryCapacity: 5
 --- !u!114 &1421040406
@@ -1153,7 +1173,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1740896875}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.169, z: -0.2190001}
+  m_LocalPosition: {x: 0, y: 1.169, z: -0.344}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1421040402}

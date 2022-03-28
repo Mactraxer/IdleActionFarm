@@ -40,6 +40,11 @@ public class ResourcePackPresenter : MonoBehaviour, IResourceable, IMoveable
     /// IMoveable
     /// 
     public Vector3 GetPosition => transform.position;
+
+    public Quaternion GetRotate => transform.rotation;
+
+    public Vector3 GetScale => transform.localScale;
+
     public void SetPosition(Vector3 newVector)
     {
         transform.position = newVector;
@@ -50,4 +55,13 @@ public class ResourcePackPresenter : MonoBehaviour, IResourceable, IMoveable
         transform.parent = parent;
     }
 
+    public void SetRotate(Quaternion quaternion)
+    {
+        transform.rotation = quaternion;
+    }
+
+    public void SetScale(Vector3 scale)
+    {
+        transform.localScale = scale;
+    }
 }
