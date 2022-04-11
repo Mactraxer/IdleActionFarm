@@ -7,18 +7,14 @@ public class PlayerPresenter : MonoBehaviour
     [SerializeField] private PlayerInput _input;
     [SerializeField] private PlayerMover _mover;
     [SerializeField] private PlayerAnimator _animator;
-    [SerializeField] private PlayerInventory _inventory;
-    [SerializeField] private PlayerWallet _wallet;
-    [SerializeField] private InventoryRotator _inventoryAnimator;
+
+    [SerializeField] private InventoryPresenter _inventory;
+    [SerializeField] private WalletPresenter _walletPresenter;
 
     [SerializeField] private HarvestTrigger _harvestTrigger;
-    
     [SerializeField] private GameObject _tool;
-
     [SerializeField] private ResourcePackTrigger _resourceTrigger;
-
-    [SerializeField] private PlayerWalletView _walletView;
-
+    
 
     private void Start()
     {
@@ -58,7 +54,7 @@ public class PlayerPresenter : MonoBehaviour
     {
         _mover.MoveVertical(direction);
         _animator.AnimateMove(direction);
-        _inventoryAnimator.ChangeSpeed(direction);
+        _inventory.RotateInventory(direction);
     }
 
     private void InputHorizontal(float direction)
@@ -97,10 +93,8 @@ public class PlayerPresenter : MonoBehaviour
 
     public void ApplyPay(int value)
     {
-        print($"Apply pay = {value}");
-        _wallet.TopUpWallet(value);
+        _walletPresenter.TopUpWallet(value);
         _inventory.ClearInventory();
-        _walletView.UpdateGold(_wallet.Balance);
     }
     
 

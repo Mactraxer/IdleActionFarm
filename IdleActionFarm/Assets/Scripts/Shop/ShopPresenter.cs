@@ -7,6 +7,7 @@ using System;
 public class ShopPresenter : MonoBehaviour
 {
     [SerializeField] private Transform _shopPosition;
+    [SerializeField] private CoinPresenter _cointPresenter;
     private ShopTrigger _trigger;
     private IMoverable _resourceMover;
     private PlayerPresenter _playerPresenter;
@@ -58,6 +59,7 @@ public class ShopPresenter : MonoBehaviour
 
     private void MovedPacks()
     {
+        _cointPresenter.AppearCoin();
         _playerPresenter.ApplyPay(_sumForPay);
         _playerPresenter = null;
     }

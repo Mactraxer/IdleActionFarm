@@ -1,28 +1,20 @@
-using System.Collections;
-using UnityEngine.UI;
 using UnityEngine;
+using DG.Tweening;
+using System;
 
 public class CoinAnimator : MonoBehaviour
 {
 
-    [SerializeField] private Sprite _coinSprite;
-    [SerializeField] private RectTransform _distanse;
+    [SerializeField] private Transform _distanse;
     [SerializeField] private float _durationTime;
+    
+    public Action<Transform> OnAnimationEnd;
 
-    public void StartAnimation(int count)
+    public void StartAnimation(Transform coin)
     {
-
+        Sequence sequence = DOTween.Sequence();
+        sequence.OnKill(() => OnAnimationEnd?.Invoke(coin));
+        sequence.Append(coin.DOMove(_distanse.transform.position, _durationTime)).SetEase(Ease.InQuad);
     }
 
-    private IEnumerator CoroutineMoveCoin()
-    {
-        var waitFixedUpdate = new WaitForFixedUpdate();
-        float time = 0;
-
-        while (time < _durationTime)
-        {
-            //TODO - make coin animation
-            yield return waitFixedUpdate;
-        }
-    }
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class PlayerWallet : MonoBehaviour
+public class Wallet : MonoBehaviour
 {
     private int _balance;
 

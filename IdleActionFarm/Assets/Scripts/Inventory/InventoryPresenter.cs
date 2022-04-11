@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ResourcePackMover))]
-public class PlayerInventory : MonoBehaviour
+public class InventoryPresenter : MonoBehaviour
 {
     private IMoverable _packMover;
     [SerializeField] private List<IResourceable> _items;
     [SerializeField] private Transform _inventoryTransform;
     [SerializeField] private int _maxInventoryCapacity;
+    [SerializeField] private InventoryView _view;
+    [SerializeField] private InventoryRotator _inventoryAnimator;
 
     private void Start()
     {
@@ -17,6 +19,8 @@ public class PlayerInventory : MonoBehaviour
 
         _packMover.OnMovedPack += ResourceMoved;
         _packMover.Setup(_inventoryTransform, new Vector3(0, 0.2f, 0), 0.4f);
+
+        _view.SetupInventoryView(_maxInventoryCapacity);
     }
 
     private void ResourceMoved(IMoveable pack)
@@ -25,11 +29,17 @@ public class PlayerInventory : MonoBehaviour
         if (resource == null) throw new ArgumentNullException("Can't convert IMoveable to IResourceable"); 
 
         _items.Add(resource);
+        _view.UpdateInventoryView(_items.Count);
         pack.ChangeParent(_inventoryTransform);
         
     }
 
     /// API
+    public void RotateInventory(float direction)
+    {
+        _inventoryAnimator.ChangeSpeed(direction);
+    }
+
     public void PutItem(IResourceable item)
     {
         if (CanPutItem() == false) { throw new InvalidOperationException("Inventory is full"); }
@@ -63,6 +73,7 @@ public class PlayerInventory : MonoBehaviour
         _items.ForEach( item => item.DestroySelf() );
 
         _items = new List<IResourceable>();
+        _view.UpdateInventoryView(_items.Count);
         _packMover.ClearOffset();
     }
 

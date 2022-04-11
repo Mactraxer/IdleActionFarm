@@ -15,4 +15,4 @@ MonoBehaviour:
   _name: Young
   _isRipe: 0
   _prefab: {fileID: 4432734101278908443, guid: c6097a3cc1c2bef4d8a514a3cc23a13f, type: 3}
-  _timeForCircle: 5
+  _timeForCircle: 1
