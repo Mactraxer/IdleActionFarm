@@ -11,6 +11,7 @@ public class InventoryPresenter : MonoBehaviour
     [SerializeField] private int _maxInventoryCapacity;
     [SerializeField] private InventoryView _view;
     [SerializeField] private InventoryRotator _inventoryAnimator;
+    
 
     private void Start()
     {
